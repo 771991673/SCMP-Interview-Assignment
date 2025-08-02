@@ -55,6 +55,11 @@ public class NetworkManager {
     }
     
     func performRequest<ResponseType: NetworkResponse>(_ request: NetworkRequest<ResponseType>, showLoading: Bool = true) async throws -> ResponseType {
+        
+        UIManager.shared.showLoading()
+    
+        defer { UIManager.shared.hideLoading() }
+        
         var finalURL = request.url
         if let body = request.body as? [String: String], ["GET", "HEAD", "DELETE"].contains(request.method.rawValue.uppercased()) {
             var components = URLComponents(url: request.url, resolvingAgainstBaseURL: false)!
