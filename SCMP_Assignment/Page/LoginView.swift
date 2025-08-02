@@ -20,17 +20,20 @@ struct LoginView: View {
             Text("Login")
                 .font(.largeTitle)
                 .fontWeight(.bold)
-            
+                .accessibilityIdentifier("loginTitle")
+
             TextField("Email", text: $viewModel.email)
                 .textFieldStyle(.roundedBorder)
                 .textInputAutocapitalization(.never)
                 .disableAutocorrection(true)
                 .padding(.horizontal)
-            
+                .accessibilityIdentifier("emailTextField")
+
             SecureField("Password", text: $viewModel.password)
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal)
- 
+                .accessibilityIdentifier("passwordTextField")
+
             
             Button(action: {
                 Task {
@@ -45,6 +48,8 @@ struct LoginView: View {
                     .cornerRadius(10)
                     .padding(.horizontal)
             }
+            .accessibilityIdentifier("loginButton")
+
         }
         .padding()
         .onAppear {

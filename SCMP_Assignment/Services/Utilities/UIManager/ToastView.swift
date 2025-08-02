@@ -21,5 +21,7 @@ struct ToastView: View {
             .padding(.horizontal)
             .transition(.opacity.combined(with: .move(edge: position == .top ? .top : .bottom)))
             .zIndex(1)
+            .accessibilityIdentifier("toastText")
+
     }
 }

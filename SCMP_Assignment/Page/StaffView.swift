@@ -23,6 +23,7 @@ struct StaffView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding()
+                .accessibilityIdentifier("staffViewTitle")
             
             if let savedToken = KeychainHelper.getJWT(forKey: "token") {
                 Text(savedToken)
