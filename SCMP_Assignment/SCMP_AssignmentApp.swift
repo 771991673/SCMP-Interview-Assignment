@@ -17,7 +17,6 @@ struct SCMP_AssignmentApp: App {
     
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
             StaffPageData.self
 
         ])

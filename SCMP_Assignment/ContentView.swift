@@ -30,5 +30,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: StaffPageData.self, inMemory: true)
 }
