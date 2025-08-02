@@ -43,8 +43,9 @@ class LoginViewModel: ObservableObject {
     
     
     func validatePassword() -> Bool {
-            let filtered = password.filter { $0.isLetter || $0.isNumber }
-            if filtered.count >= 6 && filtered.count <= 10 {
+            let passwordRegex = "^[a-zA-Z0-9]{6,10}$"
+            let isValidPasswords = password.range(of: passwordRegex, options: .regularExpression) != nil
+            if isValidPasswords {
                 errorMessage = nil
                 return true
             } else {
