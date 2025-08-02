@@ -12,8 +12,8 @@ import SwiftData
 struct SCMP_AssignmentApp: App {
     
     @StateObject private var router = Router()
-    @Environment(\.modelContext) private var modelContext
     
+    @Environment(\.modelContext) private var modelContext
     
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([

@@ -28,7 +28,7 @@ class StaffViewModel: ObservableObject {
     }
  
     
-    func savePageData(data: StaffInfoResponse) {
+    func savePageData(data: StaffInfoResponse) async {
         do {
             let fetchDescriptor = FetchDescriptor<StaffPageData>(
                 predicate: #Predicate { $0.page == data.page }
@@ -48,11 +48,15 @@ class StaffViewModel: ObservableObject {
         }
     }
     
-    func loadAllStaffs() {
-        allStaffs = fetchAllPages().flatMap { $0.data }
+    func loadAllStaffs() async  {
+        let staffs = await fetchAllPages().flatMap { $0.data }
+        
+        await MainActor.run {
+            allStaffs = staffs
+        }
     }
     
-    func fetchAllPages() -> [StaffPageData] {
+    func fetchAllPages() async -> [StaffPageData]  {
         do {
             let fetchDescriptor = FetchDescriptor<StaffPageData>(
                 sortBy: [SortDescriptor(\.page, order: .forward)]
@@ -66,7 +70,7 @@ class StaffViewModel: ObservableObject {
         }
     }
     
-    func fetchGreatestPage() -> StaffPageData? {
+    func fetchGreatestPage() async -> StaffPageData? {
         do {
             var fetchDescriptor = FetchDescriptor<StaffPageData>(
                 sortBy: [SortDescriptor(\.page, order: .reverse)]
@@ -85,7 +89,7 @@ class StaffViewModel: ObservableObject {
     func loadMoreStaff() async {
         var nextPageID = 1
         
-        if let greatestPage = fetchGreatestPage() {
+        if let greatestPage = await fetchGreatestPage() {
             nextPageID = greatestPage.page + 1
             
             if nextPageID > greatestPage.totalPages {
@@ -99,7 +103,7 @@ class StaffViewModel: ObservableObject {
         do {
             let pageData = try await NetworkManager.shared.performRequest(.getStaffPage(num: nextPageID))
             debugPrint("fetching page \(nextPageID)")
-            savePageData(data: pageData)
+            await savePageData(data: pageData)
             
             await MainActor.run {
                 allStaffs.append(contentsOf: pageData.data)

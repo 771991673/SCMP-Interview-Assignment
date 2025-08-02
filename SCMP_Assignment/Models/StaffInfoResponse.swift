@@ -25,7 +25,7 @@ struct StaffInfoResponse: Codable, NetworkResponse {
     
 }
 
-// MARK: - Datum
+// MARK: - Staff
 struct Staff: Codable, Identifiable {
     let id: Int
     let email, firstName, lastName: String

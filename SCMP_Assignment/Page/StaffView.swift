@@ -60,13 +60,13 @@ struct StaffView: View {
                 }
             }
         .onAppear {
-            viewModel.loadAllStaffs()
 
             Task {
+                await viewModel.loadAllStaffs()
                 await viewModel.loadMoreStaff()
             }
             
         }
             
-        }
+    }
 }
