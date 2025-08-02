@@ -10,14 +10,12 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-//    @Query private var items: [Item]
     @EnvironmentObject private var router: Router
 
     
     var body: some View {
         NavigationStack(path: $router.path) {
                 LoginView(router: router)
-//            StaffView(modelContext: modelContext)
                 .navigationDestination(for: Route.self) { route in
                     switch route {
                     case .login:

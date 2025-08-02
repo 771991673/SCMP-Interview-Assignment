@@ -54,7 +54,7 @@ class LoginViewModel: ObservableObject {
         }
     
     func login() async {
-        var success = false
+            var success = false
 
             if email.isEmpty || password.isEmpty {
                 errorMessage = "Please fill in all fields"
@@ -75,9 +75,6 @@ class LoginViewModel: ObservableObject {
                     errorMessage = "Network Error: \(error.localizedDescription)"
                     success = false
                 }
-            } else {
-                errorMessage = "Invalid credentials"
-                success = false
             }
             
             if success {
