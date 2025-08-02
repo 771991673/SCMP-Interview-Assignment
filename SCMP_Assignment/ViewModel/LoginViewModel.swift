@@ -61,11 +61,21 @@ class LoginViewModel: ObservableObject {
                 errorMessage = "Please fill in all fields"
                 success = false
             } else if validateEmail() && validatePassword() {
-//                TODO: login api call
-                
-                
-                errorMessage = nil
-                success = true
+                do {
+                    let token =  try await NetworkManager.shared.performRequest(.signIn(email: email, password: password))
+                    
+                    if let token = token.token {
+                        _ = KeychainHelper.saveJWT(token, forKey: "token")
+                    }
+                    signInState = .signIn
+                    errorMessage = nil
+                    success = true
+                    debugPrint(token)
+                } catch {
+                    signInState = .signedOut
+                    errorMessage = "Network Error: \(error.localizedDescription)"
+                    success = false
+                }
             } else {
                 errorMessage = "Invalid credentials"
                 success = false
