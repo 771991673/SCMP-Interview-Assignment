@@ -13,10 +13,6 @@ struct StaffView: View {
     
     @Environment(\.modelContext) private var modelContext
     
-    @Query private var items: [StaffPageData]
-    
-    private var allStaffs: [Staff] { items.flatMap { $0.data } }
-    
     init(modelContext: ModelContext) {
         _viewModel = StateObject(wrappedValue: StaffViewModel(modelContext: modelContext))
     }
@@ -28,9 +24,14 @@ struct StaffView: View {
                 .fontWeight(.bold)
                 .padding()
             
+            if let savedToken = KeychainHelper.getJWT(forKey: "token") {
+                Text(savedToken)
+                    .font(.headline)
+            }
+            
             List {
-                ForEach(allStaffs) { staff in
-                                        VStack(alignment: .leading) {
+                ForEach(viewModel.allStaffs, id: \.id) { staff in
+                        VStack(alignment: .leading) {
                                     
                                     AsyncImage(url: URL(string: staff.avatar))
                                     
@@ -46,13 +47,26 @@ struct StaffView: View {
                                         .foregroundColor(.gray)
                                     
                                 }
+                                .onAppear {
+                                    print("Rendering item: \(staff.firstName)")
+                                }
                             }
-                
-                Button(action: viewModel.loadMoreStaff) {
-                                Text("Load more")
-                }
+                    
+                    Button(action: {
+                        Task {
+                            await viewModel.loadMoreStaff()
+                        }
+                    }) { Text("Load more") }
                 }
             }
+        .onAppear {
+            viewModel.loadAllStaffs()
+
+            Task {
+                await viewModel.loadMoreStaff()
+            }
+            
+        }
             
         }
 }
