@@ -10,9 +10,16 @@ import SwiftData
 
 @main
 struct SCMP_AssignmentApp: App {
+    
+    @StateObject private var router = Router()
+    @Environment(\.modelContext) private var modelContext
+    
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
+            StaffPageData.self
+
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -26,6 +33,8 @@ struct SCMP_AssignmentApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .uiManager()
+                .environmentObject(router)
         }
         .modelContainer(sharedModelContainer)
     }
