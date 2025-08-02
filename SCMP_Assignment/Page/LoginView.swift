@@ -30,17 +30,11 @@ struct LoginView: View {
             SecureField("Password", text: $viewModel.password)
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal)
-            
-            if let error = viewModel.errorMessage {
-                Text(error)
-                    .foregroundColor(.red)
-                    .font(.caption)
-            }
+ 
             
             Button(action: {
                 Task {
-                    let success = await viewModel.login()
-                
+                    await viewModel.login()
                 }
             }) {
                 Text("Login")
@@ -54,7 +48,7 @@ struct LoginView: View {
         }
         .padding()
         .onAppear {
-            
+            viewModel.autoLogin()
         }
     }
 }

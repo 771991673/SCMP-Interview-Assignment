@@ -26,7 +26,6 @@ class LoginViewModel: ObservableObject {
     
     init(router: Router) {
         self.router = router
-        autoLogin()
     }
     
     func validateEmail() -> Bool {
