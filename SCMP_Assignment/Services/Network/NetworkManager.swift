@@ -5,8 +5,6 @@
 //  Created by James on 2/8/2025.
 //
 
-
-
 import Foundation
 import Combine
 import SwiftUI
@@ -57,7 +55,7 @@ public class NetworkManager {
     func performRequest<ResponseType: NetworkResponse>(_ request: NetworkRequest<ResponseType>, showLoading: Bool = true) async throws -> ResponseType {
         
         UIManager.shared.showLoading()
-    
+        
         defer { UIManager.shared.hideLoading() }
         
         var finalURL = request.url
@@ -66,7 +64,7 @@ public class NetworkManager {
             components.queryItems = body.map { URLQueryItem(name: $0.key, value: $0.value) }
             finalURL = components.url!
         }
-
+        
         var urlRequest = URLRequest(url: finalURL)
         urlRequest.httpMethod = request.method.rawValue.uppercased()
         
@@ -76,7 +74,7 @@ public class NetworkManager {
         for (key, value) in request.headers ?? [:] {
             urlRequest.setValue(value, forHTTPHeaderField: key)
         }
-
+        
         if let type = request.requestType {
             switch type {
             case .form:
@@ -85,7 +83,7 @@ public class NetworkManager {
                 break
             }
         }
-
+        
         if !["GET", "HEAD", "DELETE"].contains(request.method.rawValue.uppercased()), let body = request.body {
             if request.requestType == .form {
                 if let bodyDict = body as? [String: String] {
@@ -101,16 +99,16 @@ public class NetworkManager {
                 }
             }
         }
-
+        
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
-
+        
         guard let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) else {
             throw URLError(.badServerResponse)
         }
-
+        
         let decoder = JSONDecoder()
         let result = try decoder.decode(ResponseType.self, from: data)
-
+        
         return result
     }
     

@@ -22,11 +22,11 @@ class StaffViewModel: ObservableObject {
             }
         }
     }
-
+    
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
- 
+    
     
     func savePageData(data: StaffInfoResponse) async {
         do {
@@ -39,7 +39,7 @@ class StaffViewModel: ObservableObject {
                 errorMessage = "A record with page \(data.page) already exists"
                 return
             }
-
+            
             let staffInfoData = StaffPageData(page: data.page, perPage: data.perPage, total: data.total, totalPages: data.totalPages, data: data.data, support: data.support)
             modelContext.insert(staffInfoData)
             try modelContext.save()
@@ -84,7 +84,7 @@ class StaffViewModel: ObservableObject {
             return nil
         }
     }
-
+    
     
     func loadMoreStaff() async {
         var nextPageID = 1

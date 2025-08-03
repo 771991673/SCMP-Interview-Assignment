@@ -6,6 +6,6 @@
 //
 
 public enum SignInState: Int {
-  case signIn
-  case signedOut
+    case signIn
+    case signedOut
 }

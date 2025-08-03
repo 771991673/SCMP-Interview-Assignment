@@ -16,7 +16,7 @@ class LoginViewUITests: XCTestCase {
         app.launch()
     }
     
-
+    
     func testLoginViewElementsExist() throws {
         
         XCTAssertTrue(app.staticTexts["loginTitle"].exists, "Login title should be visible")
@@ -25,7 +25,7 @@ class LoginViewUITests: XCTestCase {
         XCTAssertTrue(app.buttons["loginButton"].exists, "Login button should be visible")
     }
     
-
+    
     
     func testEmptyFieldLogin() throws {
         

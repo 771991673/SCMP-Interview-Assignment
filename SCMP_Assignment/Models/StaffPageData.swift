@@ -16,7 +16,7 @@ final class StaffPageData {
     var totalPages: Int
     @Attribute(.externalStorage) var data: [Staff]
     var support: Support
-
+    
     init(page: Int, perPage: Int, total: Int, totalPages: Int, data: [Staff], support: Support) {
         self.page = page
         self.perPage = perPage

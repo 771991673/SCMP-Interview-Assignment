@@ -32,39 +32,39 @@ struct StaffView: View {
             
             List {
                 ForEach(viewModel.allStaffs, id: \.id) { staff in
-                        VStack(alignment: .leading) {
-                                    
-                                    AsyncImage(url: URL(string: staff.avatar))
-                                        .accessibilityIdentifier("staffAvatar_\(staff.id)")
-
-                                    HStack {
-                                        Text(staff.firstName)
-                                            .font(.headline)
-                                            .accessibilityIdentifier("staffFirstName_\(staff.id)")
-                                        Text(staff.lastName)
-                                            .font(.headline)
-                                            .accessibilityIdentifier("staffLastName_\(staff.id)")
-                                    }
-                                    
-                                    Text(staff.email)
-                                        .font(.subheadline)
-                                        .foregroundColor(.gray)
-                                        .accessibilityIdentifier("staffEmail_\(staff.id)")
-                                    
-                                }
-                                .onAppear {
-                                    print("Rendering item: \(staff.firstName)")
-                                }
-                            }
-                    
-                    Button(action: {
-                        Task {
-                            await viewModel.loadMoreStaff()
+                    VStack(alignment: .leading) {
+                        
+                        AsyncImage(url: URL(string: staff.avatar))
+                            .accessibilityIdentifier("staffAvatar_\(staff.id)")
+                        
+                        HStack {
+                            Text(staff.firstName)
+                                .font(.headline)
+                                .accessibilityIdentifier("staffFirstName_\(staff.id)")
+                            Text(staff.lastName)
+                                .font(.headline)
+                                .accessibilityIdentifier("staffLastName_\(staff.id)")
                         }
-                    }) { Text("Load more") }
+                        
+                        Text(staff.email)
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                            .accessibilityIdentifier("staffEmail_\(staff.id)")
+                        
+                    }
+                    .onAppear {
+                        print("Rendering item: \(staff.firstName)")
+                    }
+                }
+                
+                Button(action: {
+                    Task {
+                        await viewModel.loadMoreStaff()
+                    }
+                }) { Text("Load more") }
                     .accessibilityIdentifier("loadMoreButton")
-                }.accessibilityIdentifier("staffList")
-            }
+            }.accessibilityIdentifier("staffList")
+        }
         .onAppear {
             Task {
                 await viewModel.loadAllStaffs()
@@ -72,6 +72,6 @@ struct StaffView: View {
             }
             
         }
-            
+        
     }
 }

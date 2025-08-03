@@ -27,7 +27,6 @@ class MockNetworkManager: NetworkManagerProtocol {
     }
 }
 
-// Request.swift (example)
 enum Request {
     case signIn(email: String, password: String)
     

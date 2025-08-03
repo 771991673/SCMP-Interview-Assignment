@@ -8,7 +8,7 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject private var router: Router
-
+    
     @StateObject private var viewModel: LoginViewModel
     
     init(router: Router) {
@@ -21,19 +21,19 @@ struct LoginView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .accessibilityIdentifier("loginTitle")
-
+            
             TextField("Email", text: $viewModel.email)
                 .textFieldStyle(.roundedBorder)
                 .textInputAutocapitalization(.never)
                 .disableAutocorrection(true)
                 .padding(.horizontal)
                 .accessibilityIdentifier("emailTextField")
-
+            
             SecureField("Password", text: $viewModel.password)
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal)
                 .accessibilityIdentifier("passwordTextField")
-
+            
             
             Button(action: {
                 Task {
@@ -49,7 +49,7 @@ struct LoginView: View {
                     .padding(.horizontal)
             }
             .accessibilityIdentifier("loginButton")
-
+            
         }
         .padding()
         .onAppear {

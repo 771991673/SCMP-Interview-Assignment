@@ -27,8 +27,8 @@ struct UIManagerModifier: ViewModifier {
             }
             
             if uiManager.isShowingLoading {
-                            LoadingView(message: uiManager.loadingMessage)
-                                .animation(.easeInOut(duration: 0.3), value: uiManager.isShowingLoading)
+                LoadingView(message: uiManager.loadingMessage)
+                    .animation(.easeInOut(duration: 0.3), value: uiManager.isShowingLoading)
             }
         }
     }

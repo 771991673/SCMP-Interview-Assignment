@@ -19,8 +19,8 @@ class StaffViewUITests: XCTestCase {
     }
     
     override func tearDownWithError() throws {
-         app = nil
-     }
+        app = nil
+    }
     
     func loginWorkflow() throws {
         
@@ -47,7 +47,7 @@ class StaffViewUITests: XCTestCase {
     }
     
     func testStaffListPopulated() throws {
-
+        
         let list = app.tables["staffList"]
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
@@ -59,11 +59,11 @@ class StaffViewUITests: XCTestCase {
             XCTAssertTrue(firstStaffCell.staticTexts["staffLastName_1"].exists, "Last name 'Bluth' should be displayed")
             XCTAssertTrue(firstStaffCell.staticTexts["staffEmail_1"].exists, "Email 'george.bluth@reqres.in' should be displayed")
         }
-
+        
     }
     
     func testLoadMoreButton() throws {
-
+        
         let list = app.tables["staffList"]
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
@@ -83,4 +83,4 @@ class StaffViewUITests: XCTestCase {
         }
     }
 }
-    
+

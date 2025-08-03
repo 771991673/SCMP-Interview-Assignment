@@ -8,10 +8,10 @@
 import SwiftUI
 
 class UIManager: ObservableObject {
-
+    
     static let shared = UIManager()
     
-
+    
     @Published private(set) var isShowing: Bool = false
     @Published private(set) var message: String = ""
     @Published private(set) var duration: Double = 2.0
@@ -45,7 +45,7 @@ class UIManager: ObservableObject {
         }
     }
     
-
+    
     func showLoading(message: String = "Loading...") {
         DispatchQueue.main.async {
             self.loadingMessage = message
