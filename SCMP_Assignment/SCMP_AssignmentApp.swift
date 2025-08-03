@@ -15,16 +15,6 @@ struct SCMP_AssignmentApp: App {
     
     @Environment(\.modelContext) private var modelContext
     
-    @StateObject private var defaults = Defaults.shared
-
-    init() {
-        if ProcessInfo.processInfo.arguments.contains("--uitesting") {
-            Defaults.shared.logout()
-        }
-    }
-    
-    
-    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             StaffPageData.self

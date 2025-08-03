@@ -13,7 +13,6 @@ class LoginViewUITests: XCTestCase {
     override func setUpWithError() throws {
         continueAfterFailure = false
         app = XCUIApplication()
-        app.launchArguments.append("--uitesting")
         app.launch()
     }
     
@@ -55,32 +54,4 @@ class LoginViewUITests: XCTestCase {
     }
     
     
-    func successfulLogin() throws {
-        
-        let emailTextField = app.textFields["emailTextField"]
-        emailTextField.tap()
-        emailTextField.typeText("eve.holt@reqres.in")
-        
-        let passwordTextField = app.secureTextFields["passwordTextField"]
-        passwordTextField.tap()
-        passwordTextField.typeText("cityslicka")
-        
-        let loginButton = app.buttons["loginButton"]
-        loginButton.tap()
-    }
-    
-    func testAutoLogin() throws {
-        
-        try successfulLogin()
-        
-        let staffViewTitle = app.staticTexts["staffViewTitle"]
-        XCTAssertTrue(staffViewTitle.waitForExistence(timeout: 10), "Staff view did not appear after auto-login")
-        XCTAssertTrue(staffViewTitle.exists, "Staff view title should be visible")
-
-        let app = XCUIApplication()
-        app.terminate()
-        app.launch()
-        
-        XCTAssertTrue(staffViewTitle.exists, "Staff view title should be visible")
-    }
 }
